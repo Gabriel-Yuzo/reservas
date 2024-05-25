@@ -28,11 +28,11 @@ func LoadConfig() Config {
 	config := Config{
 		Port: getEnv("PORT", "8080"),
 		MysqlURL: MySQLConfig{
-			Host:     "",
-			Port:     "",
-			User:     "",
-			Password: "",
-			Database: "",
+			Host:     getEnv("DB_HOST", ""),
+			Port:     getEnv("DB_PORT", ""),
+			User:     getEnv("DB_USER", ""),
+			Password: getEnv("DB_PASSWORD", ""),
+			Database: getEnv("DB_NAME", ""),
 		},
 	}
 
