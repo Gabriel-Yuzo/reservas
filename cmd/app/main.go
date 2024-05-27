@@ -5,10 +5,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Gabriel-Yuzo/reservas/config"
 	database "github.com/Gabriel-Yuzo/reservas/infra/adpters/mysql"
 	models "github.com/Gabriel-Yuzo/reservas/infra/adpters/mysql/models"
 	repository "github.com/Gabriel-Yuzo/reservas/infra/adpters/mysql/repository"
+	"github.com/Gabriel-Yuzo/reservas/internal/config"
 	"github.com/gin-gonic/gin"
 )
 
