@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Gabriel-Yuzo/reservas/config"
+	"github.com/Gabriel-Yuzo/reservas/internal/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
