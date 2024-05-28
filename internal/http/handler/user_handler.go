@@ -24,8 +24,8 @@ func NewUserHandler(userUsecase usecase.UserUsecase) *UserHandler {
 // @Tags users
 // @Accept  json
 // @Produce  json
-// @Param   user     body    domain.User     true        "User Data"
-// @Success 200 {object} domain.User
+// @Param   user     body    models.User     true        "User Data"
+// @Success 200 {object} models.User
 // @Failure 400 {object} gin.H{"error": string}
 // @Failure 500 {object} gin.H{"error": string}
 // @Router /users [post]
@@ -51,9 +51,8 @@ func (h *UserHandler) CreateUser(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param   id     path    int     true        "User ID"
-// @Success 200 {object} domain.User
-// @Failure 400 {object} gin.H{"error": string}
-// @Failure 500 {object} gin.H{"error": string}
+// @Success 200 {object} models.User
+// @Failure 400 {object} ErrorResponse
 // @Router /users/{id} [get]
 func (h *UserHandler) GetUser(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
