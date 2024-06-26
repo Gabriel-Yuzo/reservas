@@ -23,3 +23,5 @@ func ConnectMySQL(cfg config.MySQLConfig) (*gorm.DB, error) {
 	log.Println("Conexão com o banco de dados bem-sucedida!")
 	return db, nil
 }
+
+//teste teste workflows
