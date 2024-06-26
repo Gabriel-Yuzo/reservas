@@ -1,27 +1,42 @@
 package usecase
 
 import (
-	"github.com/Gabriel-Yuzo/reservas/infra/adpters/mysql/models"
-	"github.com/Gabriel-Yuzo/reservas/infra/adpters/mysql/repository"
+	"github.com/Gabriel-Yuzo/reservas/internal/domain/models"
+	"github.com/Gabriel-Yuzo/reservas/internal/domain/repository"
 )
 
 type UserUsecase interface {
-	CreateUser(user *models.User) error
-	GetUserByID(id uint64) (*models.User, error)
+	CreateUser(User *models.User) error
+	GetUserByID(id int) (*models.User, error)
+	GetAllUsers() ([]*models.User, error)
+	UpdateUser(User *models.User) error
+	DeleteUser(id int) error
 }
 
-type userUsecase struct {
-	userRepo repository.UserRepository
+type UserUsecaseImpl struct {
+	repo repository.UserRepository
 }
 
-func NewUserUsecase(userRepo repository.UserRepository) UserUsecase {
-	return &userUsecase{userRepo: userRepo}
+func NewUserUsecaseImpl(repo repository.UserRepository) *UserUsecaseImpl {
+	return &UserUsecaseImpl{repo: repo}
 }
 
-func (u *userUsecase) CreateUser(user *models.User) error {
-	return u.userRepo.CreateUser(user)
+func (u *UserUsecaseImpl) CreateUser(User *models.User) error {
+	return u.repo.Save(User)
 }
 
-func (u *userUsecase) GetUserByID(id uint64) (*models.User, error) {
-	return u.userRepo.GetUserByID(id)
+func (u *UserUsecaseImpl) GetUserByID(id int) (*models.User, error) {
+	return u.repo.FindByID(id)
+}
+
+func (u *UserUsecaseImpl) GetAllUsers() ([]*models.User, error) {
+	return u.repo.FindAll()
+}
+
+func (u *UserUsecaseImpl) UpdateUser(User *models.User) error {
+	return u.repo.Update(User)
+}
+
+func (u *UserUsecaseImpl) DeleteUser(id int) error {
+	return u.repo.Delete(id)
 }

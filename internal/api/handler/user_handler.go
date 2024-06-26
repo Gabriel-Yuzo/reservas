@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Gabriel-Yuzo/reservas/infra/adpters/mysql/models"
+	"github.com/Gabriel-Yuzo/reservas/internal/domain/models"
 	"github.com/Gabriel-Yuzo/reservas/internal/usecase"
 	"github.com/gin-gonic/gin"
 )
@@ -66,7 +66,7 @@ func (h *UserHandler) GetUser(c *gin.Context) {
 		return
 	}
 
-	user, err := h.userUsecase.GetUserByID(uint64(id))
+	user, err := h.userUsecase.GetUserByID(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, ErrorResponse{Error: err.Error()})
 		return

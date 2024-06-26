@@ -4,12 +4,12 @@ import (
 	"log"
 
 	"github.com/Gabriel-Yuzo/reservas/docs"
-	database "github.com/Gabriel-Yuzo/reservas/infra/adpters/mysql"
-	models "github.com/Gabriel-Yuzo/reservas/infra/adpters/mysql/models"
-	repository "github.com/Gabriel-Yuzo/reservas/infra/adpters/mysql/repository"
+	ginHttp "github.com/Gabriel-Yuzo/reservas/internal/api"
 	"github.com/Gabriel-Yuzo/reservas/internal/config"
-	ginHttp "github.com/Gabriel-Yuzo/reservas/internal/http"
-	usecase "github.com/Gabriel-Yuzo/reservas/internal/usecase"
+	"github.com/Gabriel-Yuzo/reservas/internal/domain/models"
+	database "github.com/Gabriel-Yuzo/reservas/internal/infra/adpters/mysql"
+	"github.com/Gabriel-Yuzo/reservas/internal/repository"
+	"github.com/Gabriel-Yuzo/reservas/internal/usecase"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -37,11 +37,8 @@ func main() {
 	}
 
 	db.AutoMigrate(&models.User{})
-
-	userRepo := repository.InitializeRepositories(db)
-
-	userUsecase := usecase.NewUserUsecase(userRepo)
-
+	userRepo := repository.NewUserRepositoryImpl(db)
+	userUsecase := usecase.NewUserUsecaseImpl(userRepo)
 	router := ginHttp.NewRouter(userUsecase)
 	// Documentação Swagger
 	docs.SwaggerInfo.BasePath = "/api"
